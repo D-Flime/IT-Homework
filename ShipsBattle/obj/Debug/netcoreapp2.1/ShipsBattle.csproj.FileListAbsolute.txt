@@ -1,0 +1,11 @@
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\bin\Debug\netcoreapp2.1\ShipsBattle.deps.json
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\bin\Debug\netcoreapp2.1\ShipsBattle.runtimeconfig.json
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\bin\Debug\netcoreapp2.1\ShipsBattle.runtimeconfig.dev.json
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\bin\Debug\netcoreapp2.1\ShipsBattle.dll
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\bin\Debug\netcoreapp2.1\ShipsBattle.pdb
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\obj\Debug\netcoreapp2.1\ShipsBattle.csprojAssemblyReference.cache
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\obj\Debug\netcoreapp2.1\ShipsBattle.csproj.CoreCompileInputs.cache
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\obj\Debug\netcoreapp2.1\ShipsBattle.AssemblyInfoInputs.cache
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\obj\Debug\netcoreapp2.1\ShipsBattle.AssemblyInfo.cs
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\obj\Debug\netcoreapp2.1\ShipsBattle.dll
+C:\Users\D-Flime\Documents\DZs\CSharp\ShipsBattle\obj\Debug\netcoreapp2.1\ShipsBattle.pdb
