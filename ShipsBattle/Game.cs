@@ -142,7 +142,7 @@ namespace ShipsBattle
             Player1 = new Player("Mann");
             Player2 = new Player("Mann2");
             //arrangeShip(Player1);
-            //arrangeShip(Player1);
+            arrangeShip(Player1);
             renderMaps();
             
         }
