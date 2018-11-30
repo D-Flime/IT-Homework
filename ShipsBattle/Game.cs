@@ -4,6 +4,7 @@ namespace ShipsBattle
 {
     public class Game
     {
+        private string gameState = "gameStart";
         private Player Player1 = new Player();
         private Player Player2 = new Player();
         private Player order;
@@ -30,13 +31,13 @@ namespace ShipsBattle
                 //Мапа игрока
             for (var i = 1; i < 11; i++){
                 for (var j = 1; j < 11; j++){
-                    if (Player1.selfMap[i, j].ship && Player1.selfMap[i, j].shot){
+                    if (order.selfMap[i, j].ship && order.selfMap[i, j].shot){
                         Console.SetCursorPosition(ofX+1+i*2, ofY+j);
                         Console.WriteLine("{X}");
-                    } else if (Player1.selfMap[i, j].ship){
+                    } else if (order.selfMap[i, j].ship){
                         Console.SetCursorPosition(ofX+1+i*2, ofY+j);
                         Console.WriteLine("■");
-                    } else if (Player1.selfMap[i, j].shot){
+                    } else if (order.selfMap[i, j].shot){
                         Console.SetCursorPosition(ofX+1+i*2, ofY+j);
                         Console.WriteLine("*");
                     } else {
@@ -48,13 +49,13 @@ namespace ShipsBattle
                 //Мапа противника
             for (var i = 1; i < 11; i++){
                 for (var j = 1; j < 11; j++){
-                    if (Player1.enemyMap[i, j].ship && Player1.enemyMap[i, j].shot){
+                    if (order.enemyMap[i, j].ship && order.enemyMap[i, j].shot){
                         Console.SetCursorPosition(ofX+1+i*2+mn2, ofY+j);
                         Console.WriteLine("{X}");
-                    } else if (Player1.enemyMap[i, j].ship){
+                    } else if (order.enemyMap[i, j].ship){
                         Console.SetCursorPosition(ofX+1+i*2+mn2, ofY+j);
                         Console.WriteLine("■");
-                    } else if (Player1.enemyMap[i, j].shot){
+                    } else if (order.enemyMap[i, j].shot){
                         Console.SetCursorPosition(ofX+1+i*2+mn2, ofY+j);
                         Console.WriteLine("*");
                     } else {
@@ -65,86 +66,112 @@ namespace ShipsBattle
             }
         }
 
-        private void arrangeShip(Player player)
+        private void arrangeShip()
         {
             var x = 0; var y = 0;
             var length = 4;
             var dir = "";
             while (length > 0)
             {
-                Console.WriteLine("Введите расположение корабля длины {0}", length);
-                GetXY:
-                while(true)
-                {
-                    Console.Write("x: "); x = Convert.ToInt32(Console.ReadLine());
-                    if (x > 0 && x < 11 && (x+length-1) < 11){
-                        break;
-                    }
-                    Console.WriteLine("Выход за пределы границы");
-                }
-                while(true)
-                {
-                    Console.Write("y: "); y = Convert.ToInt32(Console.ReadLine());
-                    if (y > 0 && y < 11 && (y+length-1) < 11){
-                        break;
-                    }
-                    Console.WriteLine("Выход за пределы границы");
-                }
-                if (Player1.selfMap[x, y].ship){
-                    Console.WriteLine("Пересечение с другим кораблём!");
-                    goto GetXY;
-                }
-                while(true){
-                    Console.WriteLine("Поворот корабля right(вправо) или down(вниз): ");
-                    dir = Console.ReadLine();
-                    if (dir == "right" || dir == ""){
-                        var error = false;
-                        for (var i = 0; i < length; i++){
-                            if (player.selfMap[x+i, y].ship){
-                                error = true;
-                                Console.WriteLine("Пересечение с другим кораблём!");
-                                break;
-                            }
-                        }
-                        if (!error){
-                            for (var i = 0; i < length; i++){player.selfMap[x+i, y].ship = true;}
+                for (byte c = 0; c <= 4-length; c++){
+                    Console.WriteLine("Введите расположение корабля длины {0}", length);
+                    GetXY:
+                    while(true)
+                    {
+                        Console.Write("x: "); x = Convert.ToInt32(Console.ReadLine());
+                        if (x > 0 && x < 11){
                             break;
                         }
-                    } else if (dir == "down"){
-                        var error = false;
-                        for (var i = 0; i < length; i++){
-                            if (player.selfMap[x, y+i].ship){
-                                error = true;
-                                Console.WriteLine("Пересечение с другим кораблём!");
-                                break;
-                            }
-                        }
-                        if (!error){
-                            for (var i = 0; i < length; i++){player.selfMap[x, y+i].ship = true;}
+                        Console.WriteLine("Выход за пределы границы");
+                    }
+                    while(true)
+                    {
+                        Console.Write("y: "); y = Convert.ToInt32(Console.ReadLine());
+                        if (y > 0 && y < 11){
                             break;
                         }
+                        Console.WriteLine("Выход за пределы границы");
                     }
+                    if (order.selfMap[x, y].ship){
+                        Console.WriteLine("Пересечение с другим кораблём!");
+                        goto GetXY;
+                    }
+                    while(true){
+                        if (length != 1){
+                            Console.WriteLine("Поворот корабля right(вправо) или down(вниз): ");
+                            dir = Console.ReadLine();
+                        } else {
+                            dir = "right";
+                        }
+                        if (dir == "right" || dir == ""){
+                            for (var i = 0; i < length; i++){
+                                if (order.selfMap[x+i, y].ship){
+                                    Console.WriteLine("Пересечение с другим кораблём!");
+                                    goto GetXY;
+                                } else if ((x+length-1) > 10){
+                                    Console.WriteLine("Выход за пределы границы");
+                                    goto GetXY;
+                                }
+                            }
+                                for (var i = 0; i < length; i++){order.selfMap[x+i, y].ship = true;}
+                                break;
+                        } else if (dir == "down"){
+                            for (var i = 0; i < length; i++){
+                                if (order.selfMap[x, y+i].ship){
+                                    Console.WriteLine("Пересечение с другим кораблём!");
+                                    goto GetXY;
+                                } else if ((y+length-1) > 10){
+                                    Console.WriteLine("Выход за пределы границы");
+                                    goto GetXY;
+                                }
+                            }
+                                for (var i = 0; i < length; i++){order.selfMap[x, y+i].ship = true;}
+                                break;
+                        }
+                    }
+                    Console.Clear();
+                    renderMaps();
                 }
                 length--;
             }
         }
 
-        private void renderGame(){
-            
+        private void playGameStep(){
+            switch (gameState){
+                case "gameStart": 
+                    Player1.enemy = Player2;
+                    Player2.enemy = Player1;
+                    order = Player1;
+                    gameState = "playerNames";
+                break;
+                case "playerNames": //Игроки пишут имена
+                    Console.Write("Имя 1-го игрока: ");
+                    Player1.name = Console.ReadLine();
+                    Console.Write("Имя 2-го игрока: ");
+                    Player2.name = Console.ReadLine();
+                    gameState = "arrangingShips";
+                    Console.Clear();
+                break;
+                case "arrangingShips": //Расстановка кораблей
+                    Console.Clear();
+                    Console.WriteLine("{0} расставляет корабли", order.name);
+                    arrangeShip();
+                    order = order.enemy;
+                    Console.Clear();
+                    Console.WriteLine("{0} расставляет корабли", order.name);
+                    arrangeShip();
+                    order = order.enemy;
+                    gameState = "battle";
+                    Console.Clear();
+                break;
+            }
         }
 
         public void startGame(){
-            Console.Write("Имя 1-го игрока: ");
-            Player1.name = Console.ReadLine();
-            Console.Write("Имя 2-го игрока: ");
-            Player2.name = Console.ReadLine();
-            //arrangeShip(Player1);
-            Player1 = new Player("Mann");
-            Player2 = new Player("Mann2");
-            //arrangeShip(Player1);
-            arrangeShip(Player1);
-            renderMaps();
-            
+            Console.Clear();
+            while (!(gameState == "endGame")){
+                playGameStep();
+            }
         }
     }
 }
