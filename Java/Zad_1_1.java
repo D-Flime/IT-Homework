@@ -1,30 +1,28 @@
 import java.util.Scanner;
 
-public class Zad1 {
+/* 1.5 Дано натуральные числа n, m. Найти максимальную и минимальную цифры числа n в
+записи этого числа в m-ичной системе счисления*/
+// Автор: Давлетшин Д. Р.
 
-    //Перевод в другую систему счисления
-    public static int numbToNumb(int numb, int m){
-        String n = Integer.toString(numb, m);
-        return Integer.parseInt(n);
-    }
+public class Main {
 
     public static void main( String[] args ) {
         Scanner in = new Scanner(System.in);
-        
-        int cifra, n, m;
+
+        int n, m;
         int max = 0;
         int min = 1000000;
-        
+
         System.out.print("n = ");
         n = in.nextInt();
         System.out.print("m = ");
         m = in.nextInt();
-        n = numbToNumb(n, m);
+
         int ost;
-        
+
         while (n != 0){
-            ost = n % 10;
-            n = n / 10;
+            ost = n % m;
+            n = n / m;
             if (ost > max){
                 max = ost;
             }
@@ -32,7 +30,64 @@ public class Zad1 {
                 min = ost;
             }
         }
-        System.out.print("max = "); System.out.println(max);
-        System.out.print("min = "); System.out.println(min);
+
+        switch(min){
+            case 10:
+                System.out.print("min = ");
+                System.out.println('A');
+                break;
+            case 11:
+                System.out.print("min = ");
+                System.out.println('B');
+                break;
+            case 12:
+                System.out.print("min = ");
+                System.out.println('C');
+                break;
+            case 13:
+                System.out.print("min = ");
+                System.out.println('D');
+                break;
+            case 14:
+                System.out.print("min = ");
+                System.out.println('E');
+                break;
+            case 15:
+                System.out.print("min = ");
+                System.out.println('F');
+                break;
+            default:
+                System.out.print("min = ");
+                System.out.println(min); break;
+        }
+        switch(max) {
+            case 10:
+                System.out.print("min = ");
+                System.out.println('A');
+                break;
+            case 11:
+                System.out.print("min = ");
+                System.out.println('B');
+                break;
+            case 12:
+                System.out.print("min = ");
+                System.out.println('C');
+                break;
+            case 13:
+                System.out.print("min = ");
+                System.out.println('D');
+                break;
+            case 14:
+                System.out.print("min = ");
+                System.out.println('E');
+                break;
+            case 15:
+                System.out.print("min = ");
+                System.out.println('F');
+                break;
+            default:
+                System.out.print("max = ");
+                System.out.println(max); break;
+        }
     }
 }
