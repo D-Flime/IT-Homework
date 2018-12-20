@@ -1,10 +1,14 @@
 import java.util.Scanner;
 
-public class Zad1 {
+/* 1.20 Дано натуральное число n. Проверить, не является ли палиндромом десятичная запись
+цифр этого числа.*/
+// Автор: Давлетшин Д. Р.
 
-    public static boolean isPalindrom(int n){
+public class Main {
+
+    public static boolean isPalindrome(int n){
         int length = (int)(Math.log10(n)+1);
-        
+
         int posL, posR;
         for (int i = 0; i < (int)(length / 2); i++){
             posL = (int)((n % Math.pow(10, length - i)) / Math.pow(10, length - i - 1));
@@ -22,16 +26,16 @@ public class Zad1 {
 
     public static void main( String[] args ) {
         Scanner in = new Scanner(System.in);
-        
+
         int n;
-        
+
         System.out.print("n = ");
         n = in.nextInt();
-        isPalindrom(n);
-        if (isPalindrom(n)){
-            System.out.print("Это палиндром");
+        isPalindrome(n);
+        if (isPalindrome(n)){
+            System.out.println("Это палиндром");
         } else {
-            System.out.print("Это не палиндром");
+            System.out.println("Это не палиндром");
         }
     }
 }
