@@ -15,7 +15,7 @@ public class Main {
         int n;
         int maxi = 0;
         int maxj = 0;
-        double k;
+        double k, sum;
         double max = 0;
         System.out.print("Длина массива = "); n = in.nextInt();
         double[] arr = new double[n];
@@ -25,9 +25,11 @@ public class Main {
             arr[i] = k;
         }
         for (int i = 0; i < n; i++){
+            sum = arr[i];
             for (int j = i+1; j < n; j++){
-                if (max < arr[i]+arr[j]){
-                    max = arr[i]+arr[j];
+                sum += arr[j];
+                if (sum > max){
+                    max = sum;
                     maxi = i;
                     maxj = j;
                 }
