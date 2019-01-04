@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+/* 2.20 Дана целочисленная квадратная матрица. Повернуть матрицу относительно центра на
+180 градусов.*/
+// Автор: Давлетшин Д. Р.
+
 public class MyClass {
     public static void main(String args[]) {
         Scanner in = new Scanner(System.in);
