@@ -1,34 +1,13 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /* 4.5 Книга. Определить класс, описывающий понятие книги. По книге хранится следующая
 информация: название, автор, год выпуска, содержание (список названий глав и их
 номера страниц). Реализовать клонирование объектов класса, поиск номера страницы
 по названию главы.*/
 // Автор: Давлетшин Д. Р.
-
-public class Zad_4 {
-    public static void main(String args[]) {
-        Book book1 = new Book("Book_1", "Author", 2018);
-        book1.addChapter("Glava_0", 5);
-        book1.addChapter("Glava_1", 10);
-        book1.addChapter("Glava_2", 24);
-
-        System.out.println(book1.getPageByChapName("Glava_1"));
-        System.out.println(book1.getPageByChapName("Glava_2"));
-        System.out.println(book1.getPageByChapName("Glava_5"));
-
-        Book book2 = book1.clone();
-
-        System.out.println(book2.getPageByChapName("Glava_1"));
-        System.out.println(book2.getPageByChapName("Glava_2"));
-        System.out.println(book2.getPageByChapName("Glava_5"));
-    }
-}
-
-//Book class
-
-import java.util.ArrayList;
-import java.util.List;
 
 class Chapter {
     Integer page;
@@ -40,11 +19,11 @@ class Chapter {
     }
 }
 
-public class Book {
+class Book {
     public String name;
     public String author;
     public Integer year;
-    public List<Chapter> chapters = new ArrayList<Chapter>();
+    public ArrayList<Chapter> chapters = new ArrayList<Chapter>();
 
     public Book(String name, String author, Integer year){
         this.name = name;
@@ -52,7 +31,14 @@ public class Book {
         this.year = year;
     }
 
-    private Book(String name, String author, Integer year, List<Chapter> chap){
+    public Book(Book bookClone){
+        this.name = bookClone.name;
+        this.author = bookClone.author;
+        this.year = bookClone.year;
+        this.chapters = (ArrayList)bookClone.chapters.clone();
+    }
+
+    private Book(String name, String author, Integer year, ArrayList<Chapter> chap){
         this.name = name;
         this.author = author;
         this.year = year;
@@ -69,10 +55,35 @@ public class Book {
                 return ch.page;
             }
         }
-        return 0;
+        return -1;
     }
 
     public Book clone(){
-        return new Book(this.name, this.author, this.year, this.chapters);
+        return new Book(this.name, this.author, this.year, (ArrayList)this.chapters.clone());
     }
 }
+
+public class Zad_4 {
+    public static void main(String args[]) {
+        Book book1 = new Book("Book_1", "Author", 2018);
+        book1.addChapter("Glava_0", 5);
+        book1.addChapter("Glava_1", 10);
+        book1.addChapter("Glava_2", 24);
+
+        Book book2 = book1.clone();
+        System.out.println(book2.chapters);
+        book1.addChapter("Glava 4", 55);
+        System.out.println(book2.chapters);
+        /*System.out.println(book1.getPageByChapName("Glava_1"));
+        System.out.println(book1.getPageByChapName("Glava_2"));
+        System.out.println(book1.getPageByChapName("Glava_5"));
+
+        Book book2 = book1.clone();
+
+        System.out.println(book2.getPageByChapName("Glava_1"));
+        System.out.println(book2.getPageByChapName("Glava_2"));
+        System.out.println(book2.getPageByChapName("Glava_5"));*/
+    }
+}
+
+
