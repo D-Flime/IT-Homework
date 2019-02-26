@@ -1,6 +1,4 @@
-import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /* 4.5 Книга. Определить класс, описывающий понятие книги. По книге хранится следующая
@@ -46,7 +44,9 @@ class Book {
     }
 
     public void addChapter(String name, Integer page){
-        chapters.add(new Chapter(name, page));
+        if (this.getPageByChapName(name) != page){
+            chapters.add(new Chapter(name, page));
+        }
     }
 
     public int getPageByChapName(String name){
@@ -61,28 +61,55 @@ class Book {
     public Book clone(){
         return new Book(this.name, this.author, this.year, (ArrayList)this.chapters.clone());
     }
+
+    public boolean equals(Object obj){
+        if(obj == this)
+            return true;
+        if(obj == null)
+            return false;
+        if(!(getClass() == obj.getClass()))
+            return false;
+        else
+        {
+            Book tmp = (Book)obj;
+            if(tmp.name == this.name && tmp.author == this.author && tmp.year == this.year){
+                if(this.chapters.equals(tmp.chapters)){
+                    return true;
+                }
+            }
+            else
+                return false;
+        }
+        return false;
+    }
+
+    public String toString(){
+        String val = "[";
+        val += "Имя:" + this.name + "], [";
+        val += "Автор:" + this.author + "], [";
+        val += "Год:" + this.year + "]";
+        for (Chapter chap : this.chapters){
+            val += ", [";
+            val += chap.name + ":" + chap.page + "]";
+        }
+        return val;
+    }
 }
 
 public class Zad_4 {
     public static void main(String args[]) {
-        Book book1 = new Book("Book_1", "Author", 2018);
-        book1.addChapter("Glava_0", 5);
-        book1.addChapter("Glava_1", 10);
-        book1.addChapter("Glava_2", 24);
-
+        Book book1 = new Book("Книга 1", "Человек", 2018);
+        book1.addChapter("Глава 1", 5);
+        book1.addChapter("Глава 2", 10);
+        book1.addChapter("Глава 3", 24);
+        System.out.println("Создаем клон");
         Book book2 = book1.clone();
-        System.out.println(book2.chapters);
-        book1.addChapter("Glava 4", 55);
-        System.out.println(book2.chapters);
-        /*System.out.println(book1.getPageByChapName("Glava_1"));
-        System.out.println(book1.getPageByChapName("Glava_2"));
-        System.out.println(book1.getPageByChapName("Glava_5"));
-
-        Book book2 = book1.clone();
-
-        System.out.println(book2.getPageByChapName("Glava_1"));
-        System.out.println(book2.getPageByChapName("Glava_2"));
-        System.out.println(book2.getPageByChapName("Glava_5"));*/
+        System.out.println("Сравнивем с клоном: "+book1.equals(book2));
+        System.out.println("Добавляем главу в клона");
+        book2.addChapter("Глава 4", 45);
+        System.out.println("Сравнивем с клоном после добавления главы: "+book1.equals(book2));
+        System.out.println("Выводим первую книгу: "+book1.toString());
+        System.out.println("Выводим вторую книгу: "+book2.toString());
     }
 }
 
