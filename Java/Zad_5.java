@@ -110,15 +110,45 @@ public class BooksLibrary{
         return list;
     }
     
-    public ArrayList<Book> getBooksByName(){
+    public ArrayList<Book> getBooksByName(String name){
         ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : booklist){
+            if (book.name == name){
+                list.add(book);
+            }
+        }
+        return list;
     }
     
-    public ArrayList<Book> getBooksByYear(){
+    public ArrayList<Book> getBooksByYear(Integer year){
         ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : booklist){
+            if (book.year == year){
+                list.add(book);
+            }
+        }
+        return list;
     }
     
+    public ArrayList<Book> getBooksByYearAndAuthor(Integer year, String author){
+        ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : booklist){
+            if (book.year == year && book.author == author){
+                list.add(book);
+            }
+        }
+        return list;
+    }
     
+    public ArrayList<Book> getBooksByYearAndName(Integer year, String name){
+        ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : booklist){
+            if (book.year == year && book.name == name){
+                list.add(book);
+            }
+        }
+        return list;
+    }
 }
 
 
