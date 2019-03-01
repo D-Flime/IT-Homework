@@ -100,15 +100,31 @@ class Book {
 public class BooksLibrary{
     public ArrayList<Book> booklist = new ArrayList<Book>();
     
-    public ArrayList<Book> getBooksByAuthor(){
+    public ArrayList<Book> getBooksByAuthor(String name){
+        ArrayList<Book> list = new ArrayList<Book>();
+        for (Book book : booklist){
+            if (book.author == name){
+                list.add(book);
+            }
+        }
+        return list;
+    }
+    
+    public ArrayList<Book> getBooksByName(){
         ArrayList<Book> list = new ArrayList<Book>();
     }
+    
+    public ArrayList<Book> getBooksByYear(){
+        ArrayList<Book> list = new ArrayList<Book>();
+    }
+    
+    
 }
 
 
 
 public class Zad_5 {
     public static void main(String args[]) {
-        
+        System.out.println("  ");
     }
 }
