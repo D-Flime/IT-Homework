@@ -1,0 +1,6 @@
+.Chat {
+    border: solid black 2px;
+    background-color: whitesmoke;
+    overflow: hidden;
+    grid-area: chat;
+}
